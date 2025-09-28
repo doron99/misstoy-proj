@@ -17,6 +17,7 @@ import { CarIndex } from './pages/CarIndex.jsx'
 import { CarEdit } from './pages/CarEdit.jsx'
 import { CarDetails } from './pages/CarDetails.jsx'
 import { UserDetails } from './pages/UserDetails.jsx'
+import { ToyIndex } from './pages/ToyIndex.jsx'
 
 
 export default function App() {
@@ -34,6 +35,8 @@ export default function App() {
                             <Route element={<CarEdit />} path="/car/edit/:carId?" />
                             <Route element={<CarDetails />} path="/car/:carId" />
                             <Route element={<UserDetails />} path="/user/:userId" />
+                            <Route element={<ToyIndex />} path="/toy" />
+
                         </Routes>
                     </main>
                     <AppFooter />

@@ -8,6 +8,7 @@ export function loadToys() {
     store.dispatch({ type: SET_IS_LOADING, isLoading: true })
     return toyService.query(filterBy)
         .then(toys => {
+            console.log('toyService.query(filterBy)',toys);
             store.dispatch({ type: SET_TOYS, toys })
         })
         .catch(err => {
@@ -48,7 +49,7 @@ export function saveToy(toy) {
     return toyService.save(toy)
         .then(savedToy => {
             console.log('savedToy:', savedToy)
-            store.dispatch({ type, toy: savedToy })
+            store.dispatch({ type: type, toy: savedToy })
             return savedToy
         })
         .catch(err => {

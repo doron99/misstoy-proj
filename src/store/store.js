@@ -9,7 +9,7 @@ import { toyReducer } from "./reducers/toy.reducer.js"
 const rootReducer = combineReducers({
     carModule: carReducer,
     userModule: userReducer,
-    ToyModule: toyReducer
+    toyModule: toyReducer
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose

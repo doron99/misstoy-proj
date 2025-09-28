@@ -38,7 +38,7 @@ export function toyReducer(state = initialState, action = {}) {
                 lastToys
             }
         case ADD_TOY:
-
+            console.log('ADD_TOY', state,state.toys,action.toy)
             return {
                 ...state,
                 toys: [...state.toys, action.toy]

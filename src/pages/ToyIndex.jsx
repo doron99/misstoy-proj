@@ -4,17 +4,20 @@ import { Link } from 'react-router-dom'
 
 
 // import { CarFilter } from '../cmps/CarFilter.jsx'
-import { CarList } from '../cmps/CarList.jsx'
+import { ToyList } from '../cmps/ToyList.jsx'
 import { toyService } from '../services/toy.service.js'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 import { loadToys, removeToy, removeToyOptimistic, saveToy, setFilterBy } from '../store/actions/toy.actions.js'
 import { ADD_TOY_TO_CART } from '../store/reducers/toy.reducer.js'
 
 
-export function CarIndex() {
-
+export function ToyIndex() {
+    
     const dispatch = useDispatch()
+    const allState = useSelector(storeState => storeState.toyModule)
+
     const toys = useSelector(storeState => storeState.toyModule.toys)
+    console.log('allState',allState)
     const filterBy = useSelector(storeState => storeState.toyModule.filterBy)
     const isLoading = useSelector(storeState => storeState.toyModule.isLoading)
 
@@ -77,10 +80,10 @@ export function CarIndex() {
                 <button className='add-btn' onClick={onAddToy}>Add Random Toy ⛐</button>
                 {/* <CarFilter filterBy={filterBy} onSetFilter={onSetFilter} /> */}
                 {!isLoading
-                    ? <CarList
-                        cars={cars}
-                        onRemoveCar={onRemoveCar}
-                        onEditCar={onEditCar}
+                    ? <ToyList
+                        toys={toys}
+                        onRemoveToy={onRemoveToy}
+                        onEditToy={onEditToy}
                         addToCart={addToCart}
                     />
                     : <div>Loading...</div>
