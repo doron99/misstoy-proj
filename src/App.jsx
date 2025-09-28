@@ -18,6 +18,8 @@ import { CarEdit } from './pages/CarEdit.jsx'
 import { CarDetails } from './pages/CarDetails.jsx'
 import { UserDetails } from './pages/UserDetails.jsx'
 import { ToyIndex } from './pages/ToyIndex.jsx'
+import { ToyEdit } from './pages/ToyEdit.jsx'
+import { ToyDetails } from './pages/ToyDetails.jsx'
 
 
 export default function App() {
@@ -36,6 +38,8 @@ export default function App() {
                             <Route element={<CarDetails />} path="/car/:carId" />
                             <Route element={<UserDetails />} path="/user/:userId" />
                             <Route element={<ToyIndex />} path="/toy" />
+                            <Route element={<ToyEdit />} path="/toy/edit/:toyId?" />
+                            <Route element={<ToyDetails />} path="/toy/:toyId" />
 
                         </Routes>
                     </main>

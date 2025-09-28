@@ -12,7 +12,8 @@ export const toyService = {
     remove,
     getEmptyToy,
     getRandomToy,
-    getDefaultFilter
+    getDefaultFilter,
+    getLabels
 }
 
 function query(filterBy = {}) {
@@ -31,7 +32,11 @@ function query(filterBy = {}) {
             return toys;
         })
 }
-
+function getLabels() {
+    return new Promise((resolve, reject) => {
+        resolve(['On wheels', 'Box game', 'Art', 'Baby', 'Doll', 'Puzzle', 'Outdoor', 'Battery Powered'])
+    })
+}
 function getById(toyId) {
     return storageService.get(STORAGE_KEY, toyId)
 }

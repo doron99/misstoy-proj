@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link,useNavigate  } from 'react-router-dom'
 
 
-// import { CarFilter } from '../cmps/CarFilter.jsx'
+import { ToyFilter } from '../cmps/ToyFilter.jsx'
 import { ToyList } from '../cmps/ToyList.jsx'
 import { toyService } from '../services/toy.service.js'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
@@ -15,6 +15,7 @@ export function ToyIndex() {
     
     const dispatch = useDispatch()
     const allState = useSelector(storeState => storeState.toyModule)
+    const navigate = useNavigate();
 
     const toys = useSelector(storeState => storeState.toyModule.toys)
     console.log('allState',allState)
@@ -53,7 +54,9 @@ export function ToyIndex() {
             })
     }
     
-    function onEditToy(car) {
+    function onEditToy(toy) {
+        navigate('/toy/edit/'+toy._id);
+
         // const price = +prompt('New price?')
         // const carToSave = { ...car, price }
 
@@ -78,7 +81,7 @@ export function ToyIndex() {
             <main>
                 {/* <Link to="/car/edit">Add Car</Link> */}
                 <button className='add-btn' onClick={onAddToy}>Add Random Toy ⛐</button>
-                {/* <CarFilter filterBy={filterBy} onSetFilter={onSetFilter} /> */}
+                <ToyFilter filterBy={filterBy} onSetFilter={onSetFilter} />
                 {!isLoading
                     ? <ToyList
                         toys={toys}

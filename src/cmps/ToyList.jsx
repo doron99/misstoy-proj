@@ -1,4 +1,5 @@
 import { ToyPreview } from "./ToyPreview.jsx"
+import { Link } from "react-router-dom";
 
 export function ToyList({ toys, onRemoveToy, onEditToy, addToCart }) {
     console.log('toys',toys)
@@ -8,7 +9,10 @@ export function ToyList({ toys, onRemoveToy, onEditToy, addToCart }) {
             {toys.map(toy =>
                 <li className="car-preview" key={toy._id}>
                     <ToyPreview toy={toy} />
+                    <div>
+                        <Link to={`/toy/${toy._id}`}>Details</Link>
 
+                    </div>
                     <div>
                         <button onClick={() => onRemoveToy(toy._id)}>x</button>
                         <button onClick={() => onEditToy(toy)}>Edit</button>
