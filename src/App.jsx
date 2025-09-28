@@ -1,35 +1,47 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// const Router = ReactRouterDOM.BrowserRouter
+// const Router = ReactRouterDOM.HashRouter
+// const { Route, Routes } = ReactRouterDOM
+// const { Provider } = ReactRedux
 
-function App() {
-  const [count, setCount] = useState(0)
+import './assets/style/main.css'
+import { HashRouter as Router, Route, Routes } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import { store } from './store/store.js'
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+import { AppHeader } from './cmps/AppHeader.jsx'
+import { AppFooter } from './cmps/AppFooter.jsx'
+
+import { HomePage } from './pages/HomePage.jsx'
+import { AboutUs } from './pages/AboutUs.jsx'
+import { CarIndex } from './pages/CarIndex.jsx'
+import { CarEdit } from './pages/CarEdit.jsx'
+import { CarDetails } from './pages/CarDetails.jsx'
+import { UserDetails } from './pages/UserDetails.jsx'
+
+
+export default function App() {
+
+    return (
+        <Provider store={store}>
+            <Router>
+                <section className="app">
+                    <AppHeader />
+                    <main className='main-layout'>
+                        <Routes>
+                            <Route element={<HomePage />} path="/" />
+                            <Route element={<AboutUs />} path="/about" />
+                            <Route element={<CarIndex />} path="/car" />
+                            <Route element={<CarEdit />} path="/car/edit/:carId?" />
+                            <Route element={<CarDetails />} path="/car/:carId" />
+                            <Route element={<UserDetails />} path="/user/:userId" />
+                        </Routes>
+                    </main>
+                    <AppFooter />
+                </section>
+            </Router>
+        </Provider>
+
+    )
 }
 
-export default App
+
