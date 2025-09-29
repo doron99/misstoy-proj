@@ -79,6 +79,10 @@ export function ToyIndex() {
         <div>
             <h3>Toys App</h3>
             <main>
+                <pre>
+                {JSON.stringify(filterBy, null, 2)}
+            </pre>
+                
                 {/* <Link to="/car/edit">Add Car</Link> */}
                 <button className='add-btn' onClick={onAddToy}>Add Random Toy ⛐</button>
                 <ToyFilter filterBy={filterBy} onSetFilter={onSetFilter} />

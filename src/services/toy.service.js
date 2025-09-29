@@ -93,8 +93,11 @@ function getRandomToy() {
     }
 }
 
+// function getDefaultFilter() {
+//     return { txt: '', maxPrice: '', minSpeed: '' }
+// }
 function getDefaultFilter() {
-    return { txt: '', maxPrice: '', minSpeed: '' }
+    return { name: '', labels: [], inStock: 'all' }
 }
 
 // TEST DATA

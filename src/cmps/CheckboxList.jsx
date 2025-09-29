@@ -13,7 +13,7 @@ export function CheckboxList({
 
     // Set initial selected items based on selectedListFromOutside
     useEffect(() => {
-        console.log('Updating selected items from props');
+        //console.log('Updating selected items from props');
         setSelectedItems(selectedListFromOutside); // Initialize selectedItems
     }, []); // Run effect when selectedListFromOutside changes
 
@@ -28,7 +28,7 @@ export function CheckboxList({
 
     // Effect to call onSelectedItemsChange when selectedItems changes
     useEffect(() => {
-        console.log('selectedItems changed', selectedItems);
+        //console.log('selectedItems changed', selectedItems);
         onSelectedItemsChange(selectedItems);
     }, [selectedItems, onSelectedItemsChange]);
 
