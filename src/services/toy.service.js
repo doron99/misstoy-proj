@@ -16,19 +16,51 @@ export const toyService = {
     getLabels
 }
 
+//,'b','c','d','e','f','g','h']
+// const cats = ['a']
+// const arrToFilter = [{id:1,cats:['a','b','c']}]
 function query(filterBy = {}) {
     return storageService.query(STORAGE_KEY)
         .then(toys => {
             //if (!toys) return [];
-            // if (!filterBy.txt) filterBy.txt = ''
+            if (!filterBy.name) filterBy.name = ''
+
             // if (!filterBy.maxPrice) filterBy.maxPrice = Infinity
             // if (!filterBy.minSpeed) filterBy.minSpeed = -Infinity
-            // const regExp = new RegExp(filterBy.txt, 'i')
-            // return toys.filter(toy =>
-            //     regExp.test(toy.vendor) 
-            //     && toy.price <= filterBy.maxPrice 
-            //     && toy.speed >= filterBy.minSpeed
-            // )
+            const regExp = new RegExp(filterBy.name, 'i');
+
+            if (filterBy.labels.length > 0) {
+                toys = toys.filter(item => 
+                    item.labels.some(lbl => filterBy.labels.includes(lbl))
+                );
+            }
+            if (filterBy.inStock == 'inStock') {
+                toys = toys.filter(toy => toy.inStock == true);
+            }
+            if (filterBy.inStock == 'outOfStock') {
+                toys = toys.filter(toy => toy.inStock == false);
+            }
+            if (filterBy.name.length > 0) {
+                toys = toys.filter(toy => regExp.test(toy.name));
+            }
+            const isDescending = filterBy.isDesc ? -1 : 1;
+            if (filterBy.orderBy == 'createdAt') {
+                toys = toys.sort((a, b) => {
+                    return (a.createdAt - b.createdAt) * isDescending; // Ascending order
+                });
+            }
+            if (filterBy.orderBy == 'name') {
+                toys = toys.sort((a, b) => {
+                    return  (a.name.localeCompare(b.name)) * isDescending;
+                });
+            }
+            if (filterBy.orderBy == 'price') {
+                toys = toys.sort((a, b) => {
+                    return  (a.price > b.price) * isDescending;
+                });
+            }
+            
+            
             return toys;
         })
 }
@@ -97,7 +129,7 @@ function getRandomToy() {
 //     return { txt: '', maxPrice: '', minSpeed: '' }
 // }
 function getDefaultFilter() {
-    return { name: '', labels: [], inStock: 'all' }
+    return { name: '', labels: [], inStock: 'all',orderBy: 'createdAt', isDesc: false }
 }
 
 // TEST DATA

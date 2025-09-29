@@ -5,7 +5,8 @@ export function CheckboxList({
     isDisabled = false,
     KeyValuelabelList = [],
     selectedListFromOutside = [],
-    onSelectedItemsChange
+    onSelectedItemsChange,
+    checkboxesPerRow = 3
 }) {
     const [selectedItems, setSelectedItems] = useState([]);
     const [keyValueLabelArray, setKeyValueLabelArray] = useState([]);
@@ -49,12 +50,20 @@ export function CheckboxList({
     //     console.log('Selected items:', selectedItems);
     //     // You can send the selectedItems to an API or handle it as needed
     // };
-
+    
     return (
         <section className="">
             <h2>Labels List</h2>
+            <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+
+            
             {keyValueLabelArray.map(({ label, checked }) => (
-                <div key={label}>
+                <div key={label}
+                style={{
+                        width: `${100 / checkboxesPerRow}%`, // Dynamic width based on checkboxes per row
+                        boxSizing: 'border-box', // Ensure padding and border are included in the width
+                        padding: '5px' // Optional padding for spacing
+                    }}>
                     <label>
                         <input
                             type="checkbox"
@@ -67,9 +76,33 @@ export function CheckboxList({
                     </label>
                 </div>
             ))}
-            <pre>
+            </div>
+            {/* <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+            {checkedItems.map(({ label, checked }, index) => (
+                <div
+                    key={label}
+                    style={{
+                        width: `${100 / checkboxesPerRow}%`, // Dynamic width based on checkboxes per row
+                        boxSizing: 'border-box', // Ensure padding and border are included in the width
+                        padding: '5px' // Optional padding for spacing
+                    }}
+                >
+                    <label>
+                        <input
+                            type="checkbox"
+                            value={label}
+                            checked={checked}
+                            onChange={() => handleCheckboxChange(label)}
+                            disabled={isDisabled}
+                        />
+                        {label}
+                    </label>
+                </div>
+            ))}
+        </div> */}
+            {/* <pre>
                 {JSON.stringify(selectedListFromOutside, null, 2)}
-            </pre>
+            </pre> */}
             {/* <button onClick={handleSubmit}>Submit</button> */}
         </section>
     );

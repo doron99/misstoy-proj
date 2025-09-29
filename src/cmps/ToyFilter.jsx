@@ -35,6 +35,9 @@ export function ToyFilter({ filterBy, onSetFilter }) {
         console.log('target',target)
         const field = target.name
         let value = target.value
+        console.log('target.type',target.type,
+            'target.name',target.name,
+            'target.value',target.value)
 
         switch (target.type) {
             case 'number':
@@ -44,6 +47,10 @@ export function ToyFilter({ filterBy, onSetFilter }) {
 
             case 'checkbox':
                 value = target.checked
+                break
+             case 'select-one':
+                console.log('select-one');
+                value = target.value;
                 break
         
             default: break
@@ -76,13 +83,11 @@ export function ToyFilter({ filterBy, onSetFilter }) {
             height:'20px',
             display:'inline-block'
         }
-    const { name, labels,inStock } = filterByToEdit
-    function setLabelsToCurrentUser(items) {
-        console.log('setLabelsToCurrentUser',items);
-        //setToyToEdit((prevToy) => ({ ...prevToy, labels: items }))
-
-        
-    }
+    const { name, labels,inStock, orderBy, isDesc } = filterByToEdit
+    // function setLabelsToCurrentUser(items) {
+    //     console.log('setLabelsToCurrentUser',items);
+    //     //setToyToEdit((prevToy) => ({ ...prevToy, labels: items })) 
+    // }
     const handleSelectedItemsChange = useCallback((selectedItems) => {
             console.log('Updated selected items:', selectedItems);
             //setToyToEdit((prevToy) => ({ ...prevToy, labels: selectedItems }))
@@ -90,13 +95,15 @@ export function ToyFilter({ filterBy, onSetFilter }) {
 
         }, []);
     return (
-        <fieldset className="car-filter" style={{ maxWidth: '630px', margin: 'auto' }} >
+        <section className="car-filter full main-layout">
+            <h2>Toys Filter</h2>
+        {/* <fieldset className="car-filter" style={{ maxWidth: '630px', margin: 'auto' }} >
             <legend className="car-filter-legend">
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                     <span style={{ display: 'inline-block' }}>Filter Toys</span>
-                    {/* <SvgIcon iconName='filter' style={iconSvgStyle} /> */}
+                    {/* <SvgIcon iconName='filter' style={iconSvgStyle} /> *}
                 </div>
-            </legend>
+            </legend> */}
 
             <form className="car-filter-form" onSubmit={onSubmitFilter} >
 
@@ -148,42 +155,33 @@ export function ToyFilter({ filterBy, onSetFilter }) {
                                     </div>
                                     </fieldset>
                                     }
+                    <div>
+                        <label htmlFor="order-select">Order by:</label>
+                        <select id="order-select" name="orderBy" 
+                        value={filterBy.orderBy} 
+                        onChange={handleChange}>
+                            <option value="createdAt">createdAt</option>
+                            <option value="name">name</option>
+                            <option value="price">price</option>
+                        </select>
+                    </div>
+                    <div>
+                        <br/>
+            <label>
+                <input
+                    name="isDesc"
+                    type="checkbox"
+                    checked={filterBy.isDesc} // Controlled component
+                    onChange={handleChange} // Event handler
+                />
+                Desc
+            </label>
+                    </div>
                     
                 </div>
             </form>
-        </fieldset>
-        // <section className="car-filter full main-layout">
-        //     <h2>Cars Filter</h2>
-        //     <form >
-        //         <label htmlFor="vendor">Vendor:</label>
-        //         <input type="text"
-        //             id="vendor"
-        //             name="txt"
-        //             placeholder="By vendor"
-        //             value={filterByToEdit.txt}
-        //             onChange={handleChange}
-        //         />
-
-        //         <label htmlFor="maxPrice">Max price:</label>
-        //         <input type="number"
-        //             id="maxPrice"
-        //             name="maxPrice"
-        //             placeholder="By max price"
-        //             value={filterByToEdit.maxPrice || ''}
-        //             onChange={handleChange}
-        //         />
-
-        //         <label htmlFor="minSpeed">Min Speed:</label>
-        //         <input type="number"
-        //             id="minSpeed"
-        //             name="minSpeed"
-        //             placeholder="By min speed"
-        //             value={filterByToEdit.minSpeed || ''}
-        //             onChange={handleChange}
-        //         />
-
-        //     </form>
-
-        // </section>
+        {/* </fieldset> */}
+        </section>
+  
     )
 }
