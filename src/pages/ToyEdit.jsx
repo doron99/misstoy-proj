@@ -4,6 +4,8 @@ import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 import { saveToy } from "../store/actions/toy.actions.js"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import {CheckboxList} from '../cmps/CheckboxList.jsx'
+import {useSelector } from 'react-redux'
+
 
 // const { useState, useEffect } = React
 // const { Link, useNavigate, useParams } = ReactRouterDOM
@@ -14,6 +16,7 @@ export function ToyEdit() {
     const [toyToEdit, setToyToEdit] = useState(null)
     const { toyId } = useParams()
     const [labelArr, setLabelArr] = useState(null)
+    const isDev = useSelector(storeState => storeState.devToolModule.isDev)
 
     useEffect(() => {
         loadLabels();
@@ -74,17 +77,18 @@ export function ToyEdit() {
                 showErrorMsg('Had issues in toy details')
             })
     }
+
+    const devSection = isDev 
+    ? <pre>
+          {JSON.stringify(toyToEdit, null, 2)}
+      </pre>
+    : "";
     if (!toyToEdit) return <span>loading...</span>
-    // const labels = toyToEdit.labels ? <ToyLabelCheckboxList 
-    //             selectedListFromOutside={Object.assign([],toyToEdit.labels)} 
-    //             onSelectedItemsChange={handleSelectedItemsChange} />
-    //             : "loading"
+    
     return (
         <section className="car-edit">
             <h2>{toyToEdit._id ? 'Edit' : 'Add'} Toy</h2>
-            <pre>
-                {JSON.stringify(toyToEdit, null, 2)} {/* Convert object to string */}
-            </pre>
+            
             <form onSubmit={onSaveToy} >
                 <label htmlFor="name">Name : </label>
                 <input type="text"

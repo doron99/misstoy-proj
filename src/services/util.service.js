@@ -5,7 +5,9 @@ export const utilService = {
     loadFromStorage,
     saveToStorage,
     animateCSS,
-    debounce
+    debounce,
+    getTruthyValues,
+    log
 }
 
 function makeId(length = 6) {
@@ -70,4 +72,18 @@ function debounce(func, timeout = 300) {
             func.apply(this, args)
         }, timeout)
     }
+}
+export function getTruthyValues(obj) {
+    const newObj = {}
+    for (const key in obj) {
+        const value = obj[key]
+        if (value) {
+            newObj[key] = value
+        }
+    }
+    return newObj
+}
+export function log(color,topic, ...args) {
+    console.log(`%c${topic}`,`background:${color};color:white`,args)
+    
 }

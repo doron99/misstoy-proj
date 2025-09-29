@@ -1,15 +1,15 @@
 // import { combineReducers, compose, createStore } from "redux"
 import { combineReducers, compose, legacy_createStore as createStore } from "redux"
-import { carReducer } from "./reducers/car.reducer.js"
 import { userReducer } from "./reducers/user.reducer.js"
 import { toyReducer } from "./reducers/toy.reducer.js"
+import { devToolReducer } from "./reducers/dev-tool.reducer.js"
 
 // const { createStore, compose, combineReducers } = Redux
 
 const rootReducer = combineReducers({
-    carModule: carReducer,
     userModule: userReducer,
-    toyModule: toyReducer
+    toyModule: toyReducer,
+    devToolModule: devToolReducer
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose

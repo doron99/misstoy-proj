@@ -5,6 +5,7 @@ import { utilService } from "../services/util.service.js"
 import {FloatTextInput} from "../cmps/FloatTextInput.jsx"
 import {CheckboxList} from "../cmps/CheckboxList.jsx"
 import {toyService} from "../services/toy.service.js"
+
 export function ToyFilter({ filterBy, onSetFilter }) {
 
     const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
@@ -109,7 +110,7 @@ export function ToyFilter({ filterBy, onSetFilter }) {
 
                 <div style={{display:'flex'}}>
                     <div>
-                        <div style={{ marginBottom: '5px' }}>
+                        <div style={{ marginBottom: '5px',width:'150px',marginTop:'10px' }}>
 
                             <FloatTextInput
                                 id="name"
@@ -140,6 +141,30 @@ export function ToyFilter({ filterBy, onSetFilter }) {
                             </div>
                        
                     </fieldset>
+                    <fieldset style={{width:'150px'}}>
+                        <legend>Order by:</legend>
+                        <div>
+                            {/* <label htmlFor="order-select">Order by:</label> */}
+                            <select id="order-select" name="orderBy" 
+                            value={filterBy.orderBy} 
+                            onChange={handleChange}>
+                                <option value="createdAt">createdAt</option>
+                                <option value="name">name</option>
+                                <option value="price">price</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>
+                                <input
+                                    name="isDesc"
+                                    type="checkbox"
+                                    checked={filterBy.isDesc} // Controlled component
+                                    onChange={handleChange} // Event handler
+                                />
+                                Desc
+                            </label>
+                        </div>
+                    </fieldset>
 
                     </div>
                    
@@ -148,35 +173,16 @@ export function ToyFilter({ filterBy, onSetFilter }) {
                     <legend>Labels:</legend>
                         <div>
                     <CheckboxList
-                                        KeyValuelabelList={labelArr}
-                                        selectedListFromOutside={labels}
-                                        onSelectedItemsChange={handleSelectedItemsChange}
-                                    />
-                                    </div>
-                                    </fieldset>
-                                    }
-                    <div>
-                        <label htmlFor="order-select">Order by:</label>
-                        <select id="order-select" name="orderBy" 
-                        value={filterBy.orderBy} 
-                        onChange={handleChange}>
-                            <option value="createdAt">createdAt</option>
-                            <option value="name">name</option>
-                            <option value="price">price</option>
-                        </select>
-                    </div>
-                    <div>
-                        <br/>
-            <label>
-                <input
-                    name="isDesc"
-                    type="checkbox"
-                    checked={filterBy.isDesc} // Controlled component
-                    onChange={handleChange} // Event handler
-                />
-                Desc
-            </label>
-                    </div>
+                    checkboxesPerRow={1}
+                            KeyValuelabelList={labelArr}
+                            selectedListFromOutside={labels}
+                            onSelectedItemsChange={handleSelectedItemsChange}
+                        />
+                        </div>
+                        </fieldset>
+                        }
+                    
+                   
                     
                 </div>
             </form>

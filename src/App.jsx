@@ -13,9 +13,6 @@ import { AppFooter } from './cmps/AppFooter.jsx'
 
 import { HomePage } from './pages/HomePage.jsx'
 import { AboutUs } from './pages/AboutUs.jsx'
-import { CarIndex } from './pages/CarIndex.jsx'
-import { CarEdit } from './pages/CarEdit.jsx'
-import { CarDetails } from './pages/CarDetails.jsx'
 import { UserDetails } from './pages/UserDetails.jsx'
 import { ToyIndex } from './pages/ToyIndex.jsx'
 import { ToyEdit } from './pages/ToyEdit.jsx'
@@ -33,9 +30,6 @@ export default function App() {
                         <Routes>
                             <Route element={<HomePage />} path="/" />
                             <Route element={<AboutUs />} path="/about" />
-                            <Route element={<CarIndex />} path="/car" />
-                            <Route element={<CarEdit />} path="/car/edit/:carId?" />
-                            <Route element={<CarDetails />} path="/car/:carId" />
                             <Route element={<UserDetails />} path="/user/:userId" />
                             <Route element={<ToyIndex />} path="/toy" />
                             <Route element={<ToyEdit />} path="/toy/edit/:toyId?" />

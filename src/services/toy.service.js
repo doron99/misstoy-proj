@@ -13,7 +13,8 @@ export const toyService = {
     getEmptyToy,
     getRandomToy,
     getDefaultFilter,
-    getLabels
+    getLabels,
+    getFilterFromSrcParams
 }
 
 //,'b','c','d','e','f','g','h']
@@ -65,8 +66,10 @@ function query(filterBy = {}) {
         })
 }
 function getLabels() {
+    const labels = ['On wheels', 'Box game', 'Art', 'Baby', 'Doll', 'Puzzle',
+'Outdoor', 'Battery Powered']
     return new Promise((resolve, reject) => {
-        resolve(['On wheels', 'Box game', 'Art', 'Baby', 'Doll', 'Puzzle', 'Outdoor', 'Battery Powered'])
+        resolve(labels)
     })
 }
 function getById(toyId) {
@@ -98,8 +101,7 @@ function getEmptyToy() {
         inStock: true,
     }
 }
-const labels = ['On wheels', 'Box game', 'Art', 'Baby', 'Doll', 'Puzzle',
-'Outdoor', 'Battery Powered']
+
 function getRandomLabels(arr) {
     const count = Math.floor(Math.random() * 3) + 1; // Randomly choose 1, 2, or 3
     const shuffled = arr.sort(() => 0.5 - Math.random()); // Shuffle the array
@@ -130,6 +132,26 @@ function getRandomToy() {
 // }
 function getDefaultFilter() {
     return { name: '', labels: [], inStock: 'all',orderBy: 'createdAt', isDesc: false }
+}
+function getFilterFromSrcParams(srcParams) {
+    const name = srcParams.get('name') || ''
+    const inStock = srcParams.get('inStock') || 'all'
+    const orderBy = srcParams.get('orderBy') || 'createdAt'
+    const isDesc = srcParams.get('isDesc') || false
+    const urlLabels = srcParams.get('labels'); // Get the labels from the URL
+
+    //const labels = srcParams.get('labels') 
+    const allLabels = ['On wheels', 'Box game', 'Art', 'Baby', 'Doll', 'Puzzle',
+'Outdoor', 'Battery Powered']
+    const selectedLabels = urlLabels ? urlLabels.split(',').filter(label => allLabels.includes(label.trim())) : [];
+    return {
+        name,
+        inStock,
+        orderBy,
+        isDesc,
+        labels:selectedLabels
+    }
+
 }
 
 // TEST DATA

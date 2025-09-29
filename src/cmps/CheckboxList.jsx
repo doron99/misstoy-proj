@@ -6,7 +6,7 @@ export function CheckboxList({
     KeyValuelabelList = [],
     selectedListFromOutside = [],
     onSelectedItemsChange,
-    checkboxesPerRow = 3
+    checkboxesPerRow = 1
 }) {
     const [selectedItems, setSelectedItems] = useState([]);
     const [keyValueLabelArray, setKeyValueLabelArray] = useState([]);
@@ -53,7 +53,6 @@ export function CheckboxList({
     
     return (
         <section className="">
-            <h2>Labels List</h2>
             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
 
             

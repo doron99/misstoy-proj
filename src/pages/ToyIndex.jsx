@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
-import { Link,useNavigate  } from 'react-router-dom'
+import { Link,useNavigate,useSearchParams  } from 'react-router-dom'
 
 
 import { ToyFilter } from '../cmps/ToyFilter.jsx'
@@ -8,18 +8,31 @@ import { ToyList } from '../cmps/ToyList.jsx'
 import { toyService } from '../services/toy.service.js'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 import { loadToys, removeToy, removeToyOptimistic, saveToy, setFilterBy } from '../store/actions/toy.actions.js'
-import { ADD_TOY_TO_CART } from '../store/reducers/toy.reducer.js'
+import { ADD_TOY_TO_CART,SET_FILTER_BY } from '../store/reducers/toy.reducer.js'
+import {log} from '../services/util.service.js'
 
 
 export function ToyIndex() {
-    
-    const dispatch = useDispatch()
+    const isDev = useSelector(storeState => storeState.devToolModule.isDev)
+    const dispatch = useDispatch();
+    const [searchParams, setSearchParams] = useSearchParams()
+    //const [filterBy, setFilterBy] = useState(carService.getFilterFromSrcParams(searchParams))
+    const filterBy = useSelector(storeState => storeState.toyModule.filterBy);
+
+    useEffect(() => {
+        // Get the filter parameters from the URL
+        const newFilterBy = toyService.getFilterFromSrcParams(searchParams);
+        log('blue','useEffect',newFilterBy);
+
+        
+        //dispatch({type:SET_FILTER_BY,newFilterBy});
+    }, [searchParams, dispatch]);
     const allState = useSelector(storeState => storeState.toyModule)
     const navigate = useNavigate();
 
     const toys = useSelector(storeState => storeState.toyModule.toys)
     console.log('allState',allState)
-    const filterBy = useSelector(storeState => storeState.toyModule.filterBy)
+    //const filterBy = useSelector(storeState => storeState.toyModule.filterBy)
     const isLoading = useSelector(storeState => storeState.toyModule.isLoading)
 
     useEffect(() => {
@@ -75,15 +88,18 @@ export function ToyIndex() {
         // dispatch({ type: ADD_CAR_TO_CART, car })
         // showSuccessMsg('Added to Cart')
     }
+    const devSection = isDev 
+        ? <pre>
+            {JSON.stringify(filterBy, null, 2)}
+          </pre> 
+        : "";
 
     return (
         <div>
             <h3>Toys App</h3>
             <main>
-                <pre>
-                {JSON.stringify(filterBy, null, 2)}
-            </pre>
                 
+                {devSection}
                 {/* <Link to="/car/edit">Add Car</Link> */}
                 <button className='add-btn' onClick={onAddToy}>Add Random Toy ⛐</button>
                 <ToyFilter filterBy={filterBy} onSetFilter={onSetFilter} />
